@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../InventorySortPlan.cs" Link="InventorySortPlan.cs" />
+    <Compile Include="../MoveConfirmation.cs" Link="MoveConfirmation.cs" />
+    <Compile Include="../Text.cs" Link="Text.cs" />
+  </ItemGroup>
+</Project>

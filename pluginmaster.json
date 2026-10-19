@@ -1,0 +1,25 @@
+[
+  {
+    "Author": "mind",
+    "Name": "ThrowCrapOut",
+    "InternalName": "ThrowCrapOut",
+    "AssemblyVersion": "0.6.0.1",
+    "Description": "Compact armoury overview with Sort, Split and Clear actions. Supports English, German, French and Japanese. Open with /tco; settings with /tco config.",
+    "ApplicableVersion": "any",
+    "RepoUrl": "https://github.com/NeoGriever/ThrowCrapOut",
+    "Tags": [
+      "armoury",
+      "inventory",
+      "gearset"
+    ],
+    "DalamudApiLevel": 15,
+    "Punchline": "Organize your armoury and move unused gear to inventory.",
+    "Changelog": "0.6.0.1: Added localized action labels, progress colors and a thin progress bar. Pending items are shown in darker colors; active items are light blue. Each move waits for confirmation before the next action delay starts. Confirmation expires after five seconds.",
+    "IconUrl": "https://raw.githubusercontent.com/NeoGriever/ThrowCrapOut/main/plugins/ThrowCrapOut/icon.png",
+    "DownloadLinkInstall": "https://raw.githubusercontent.com/NeoGriever/ThrowCrapOut/main/plugins/ThrowCrapOut/latest.zip",
+    "DownloadLinkUpdate": "https://raw.githubusercontent.com/NeoGriever/ThrowCrapOut/main/plugins/ThrowCrapOut/latest.zip",
+    "LastUpdate": "1792452731",
+    "IsHide": false,
+    "IsTestingExclusive": false
+  }
+]
