@@ -13,6 +13,8 @@ internal static class Text
         ["Language"] = ["Language", "Sprache", "Langue", "言語"],
         ["ChatInfos"] = ["Chat messages", "Chat-Infos", "Messages de chat", "チャット通知"],
         ["Delay"] = ["Delay", "Verzögerung", "Délai", "待機時間"],
+        ["FreeInventorySlots"] = ["Keep inventory slots free", "Inventarplätze freihalten", "Emplacements d’inventaire à garder libres", "所持品の空き枠を確保"],
+        ["FirstHighLevelGear"] = ["Clear: first high level gear", "Ausräumen: hohes Item-Level zuerst", "Vider : niveau d’objet élevé d’abord", "移動: 高アイテムレベルから"],
         ["Idle"] = ["Idle", "Bereit", "Prêt", "待機中"],
         ["Sort"] = ["Sort", "Sortieren", "Trier", "整頓"],
         ["Split"] = ["Split", "Aufteilen", "Séparer", "分離"],
@@ -71,6 +73,7 @@ internal static class Text
         ["Disabled"] = ["Category disabled; nothing moved.", "Kategorie deaktiviert; nichts verschoben.", "Catégorie désactivée ; aucun déplacement.", "無効なカテゴリのため移動しませんでした。"],
         ["GearsetProtected"] = ["Item belongs to a gearset or could not be checked.", "Gegenstand gehört zu einem Gearset oder konnte nicht geprüft werden.", "Objet lié à une tenue ou vérification impossible.", "ギアセット登録済み、または確認できないアイテムです。"],
         ["InventoryFull"] = ["No free slot in the regular inventory.", "Kein freier Slot im normalen Inventar.", "Aucun emplacement libre dans l’inventaire normal.", "所持品に空きがありません。"],
+        ["InventoryCapacity"] = ["Need {0} free regular inventory slots; {1} available. Reserve: {2}.", "{0} freie Plätze im normalen Inventar nötig; {1} verfügbar. Reserve: {2}.", "{0} places libres nécessaires dans l’inventaire normal ; {1} disponibles. Réserve : {2}.", "所持品に空き枠が {0} 必要です。現在 {1} 枠。確保枠: {2}。"],
         ["Waiting"] = ["Moving {0}…", "Verschiebe {0} …", "Déplacement de {0}…", "{0} を移動中…"],
         ["DisplayMismatch"] = ["{0} moved, but its display position differs from the target.", "{0} verschoben, aber die Anzeigeposition weicht vom Ziel ab.", "{0} déplacé, mais sa position affichée diffère de la cible.", "{0} は移動しましたが、表示位置が指定と異なります。"],
     };

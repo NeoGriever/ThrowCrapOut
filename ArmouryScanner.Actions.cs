@@ -136,6 +136,7 @@ internal sealed partial class ArmouryScanner
                 if (Snapshot.CapturedAt == null) throw new InvalidOperationException(Snapshot.Status);
                 actionCharacterId = playerState.ContentId;
                 actionNeedsScan = false;
+                var clearCandidates = new List<ActionStep>();
                 foreach (var container in Snapshot.Containers.Where(c => config.IsEnabled(c.Type)))
                 {
                     if (container.Status != "Loaded" || container.Items.Any(i => i.ItemId == 0 || i.ItemLevel == null || i.InGearset == null))
@@ -143,7 +144,7 @@ internal sealed partial class ArmouryScanner
                     if (activeAction == ArsenalAction.Clear)
                     {
                         foreach (var item in container.Items.Where(i => i.InGearset == false))
-                            actionSteps.Enqueue(new(container.Type, container.Capacity, null, item));
+                            clearCandidates.Add(new(container.Type, container.Capacity, null, item));
                     }
                     else
                     {
@@ -157,6 +158,25 @@ internal sealed partial class ArmouryScanner
                         foreach (var swap in plan)
                             actionSteps.Enqueue(new(container.Type, container.Capacity, swap, null));
                     }
+                }
+                if (activeAction == ArsenalAction.Clear)
+                {
+                    if (clearCandidates.Count > 0)
+                    {
+                        var inventoryForClear = InventoryManager.Instance();
+                        if (inventoryForClear == null) throw new InvalidOperationException(T("InventoryUnavailable"));
+                        foreach (var operation in inventoryForClear->PendingOperations)
+                            if (!operation.IsEmpty) throw new InvalidOperationException(T("InventoryBusy"));
+                        var freeSlots = CountFreeRegularSlots(inventoryForClear);
+                        if (freeSlots < 0) throw new InvalidOperationException(T("InventoryUnavailable"));
+                        totalSteps = clearCandidates.Count;
+                        if (!ClearPlanning.HasCapacity(freeSlots, clearCandidates.Count, config.EffectiveFreeInventorySlots))
+                            throw new InvalidOperationException(T("InventoryCapacity", clearCandidates.Count + config.EffectiveFreeInventorySlots,
+                                freeSlots, config.EffectiveFreeInventorySlots));
+                    }
+                    foreach (var clearStep in ClearPlanning.Order(clearCandidates, candidate => candidate.ClearItem!.ItemLevel!.Value,
+                                 config.FirstHighLevelGear))
+                        actionSteps.Enqueue(clearStep);
                 }
                 totalSteps = actionSteps.Count;
                 RefreshPendingSlots();

@@ -171,6 +171,19 @@ internal sealed partial class ArmouryScanner
                 return;
             }
 
+            var freeSlots = CountFreeRegularSlots(inventory);
+            if (freeSlots < 0)
+            {
+                FinishMove(T("InventoryUnavailable"));
+                return;
+            }
+            if (!ClearPlanning.HasCapacity(freeSlots, 1, config.EffectiveFreeInventorySlots))
+            {
+                FinishMove(T("InventoryCapacity", config.EffectiveFreeInventorySlots + 1,
+                    freeSlots, config.EffectiveFreeInventorySlots));
+                return;
+            }
+
             var positions = new (InventoryType Type, int Slot)[count];
             var seen = new HashSet<(ushort Page, ushort Slot)>();
             for (var index = 0; index < count; index++)
@@ -265,6 +278,23 @@ internal sealed partial class ArmouryScanner
     private static unsafe bool IsReadable(InventoryContainer* container) =>
         container != null && container->IsLoaded && container->Items != null &&
         container->Size > 0 && container->Size <= 200;
+
+    private static unsafe int CountFreeRegularSlots(InventoryManager* inventory)
+    {
+        var free = 0;
+        foreach (var type in DestinationBags)
+        {
+            var container = inventory->GetInventoryContainer(type);
+            if (!IsReadable(container)) return -1;
+            for (var slot = 0; slot < container->Size; slot++)
+            {
+                var item = container->GetInventorySlot(slot);
+                if (item == null || item->IsSymbolic) return -1;
+                if (item->ItemId == 0) free++;
+            }
+        }
+        return free;
+    }
 
     private static unsafe InventoryItem* ReadSlot(InventoryManager* inventory, InventoryType type, int slot)
     {

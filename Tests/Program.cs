@@ -105,6 +105,28 @@ Assert(!justInTime.Update(4749, true, false, true), "Stable interval must be obs
 Assert(justInTime.Update(4999, false, false, true), "Confirmation before the deadline must succeed immediately");
 Console.WriteLine("Passed move confirmation checks, including rollback, pending operations and the five-second deadline.");
 
+var candidates = new[]
+{
+    (Category: "Main", Level: 40, Slot: 0),
+    (Category: "Main", Level: 70, Slot: 1),
+    (Category: "Ear", Level: 90, Slot: 0),
+    (Category: "Body", Level: 70, Slot: 2),
+};
+Assert(ClearPlanning.Order(candidates, item => item.Level, false).SequenceEqual(candidates),
+    "Default clear order must stay unchanged");
+Assert(ClearPlanning.Order(candidates, item => item.Level, true).Select(item => item.Level)
+    .SequenceEqual(new[] { 90, 70, 70, 40 }), "Clear order must span all categories");
+Assert(ClearPlanning.Order(candidates, item => item.Level, true).Where(item => item.Level == 70)
+    .Select(item => item.Category).SequenceEqual(new[] { "Main", "Body" }),
+    "Equal item levels must retain their original order");
+Assert(ClearPlanning.HasCapacity(12, 5, 7), "Exact capacity must be accepted");
+Assert(!ClearPlanning.HasCapacity(11, 5, 7), "Insufficient capacity must be rejected before clear");
+Assert(ClearPlanning.HasCapacity(1, 1, 0), "Zero reserve permits the last free slot");
+Assert(!ClearPlanning.HasCapacity(1, 1, 1), "Reserve must remain free after a move");
+Assert(!ClearPlanning.HasCapacity(140, 1, 140), "Full reserve blocks all moves");
+Assert(ClearPlanning.HasCapacity(140, 0, 140), "Empty clear plan should be permitted");
+Console.WriteLine("Passed global clear ordering and inventory reserve checks.");
+
 static SortEntry?[] Replay(SortEntry?[] source, List<SlotSwap> plan)
 {
     Assert(plan.Count <= Math.Max(0, source.Length - 1), "More than n-1 swaps");

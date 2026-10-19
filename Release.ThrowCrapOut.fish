@@ -21,14 +21,14 @@ if contains -- --build-only $argv
     exit 0
 end
 git rev-parse --is-inside-work-tree >/dev/null; or exit 1
-set -l version (python3 -c 'import json; print(json.load(open("bin/Release/ThrowCrapOut.json"))["AssemblyVersion"])'); or exit 1
-git add -- '*.cs' '*.csproj' .gitignore packages.lock.json Tests scripts images Release.ThrowCrapOut.fish repo.json pluginmaster.json plugins; or exit 1
+set -l release_version (python3 -c 'import json; print(json.load(open("bin/Release/ThrowCrapOut.json"))["AssemblyVersion"])'); or exit 1
+git add -- '*.cs' '*.csproj' .gitignore packages.lock.json Tests scripts images Release.ThrowCrapOut.fish Publish.ThrowCrapOut.fish repo.json pluginmaster.json plugins; or exit 1
 git diff --cached --quiet
 set -l diff_status $status
 if test $diff_status -eq 1
-    git commit -m "Release $version"; or exit 1
+    git commit -m "Release $release_version"; or exit 1
 else if test $diff_status -ne 0
     exit 1
 end
 git push -u origin HEAD; or exit 1
-echo "Released ThrowCrapOut $version"
+echo "Released ThrowCrapOut $release_version"

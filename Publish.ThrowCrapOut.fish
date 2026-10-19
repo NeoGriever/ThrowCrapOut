@@ -10,6 +10,7 @@ if test "$account" != NeoGriever
 end
 
 fish Release.ThrowCrapOut.fish --build-only; or exit 1
+set -l release_version (python3 -c 'import json; print(json.load(open("bin/Release/ThrowCrapOut.json"))["AssemblyVersion"])'); or exit 1
 
 if not test -d .git
     git init -b main; or exit 1
@@ -19,7 +20,7 @@ git add -- '*.cs' '*.csproj' .gitignore packages.lock.json Tests scripts images 
 git diff --cached --quiet
 set -l diff_status $status
 if test $diff_status -eq 1
-    git commit -m "Release 0.6.0.1"; or exit 1
+    git commit -m "Release $release_version"; or exit 1
 else if test $diff_status -ne 0
     exit 1
 end

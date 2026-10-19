@@ -12,7 +12,7 @@ internal sealed class ConfigWindow(Configuration config, Action save) : Window("
     public override void PreDraw()
     {
         WindowName = $"ThrowCrapOut - {T("Settings")}###TcoConfig";
-        Size = new Vector2(349, 321);
+        Size = new Vector2(349, 365);
         SizeCondition = ImGuiCond.Always;
         SizeConstraints = new WindowSizeConstraints { MinimumSize = Size.Value, MaximumSize = Size.Value };
         Flags = ImGuiWindowFlags.NoResize;
@@ -42,6 +42,20 @@ internal sealed class ConfigWindow(Configuration config, Action save) : Window("
         if (ImGui.SliderInt("##Delay", ref ticks, 100, 1000, delayLabel, ImGuiSliderFlags.NoInput))
         {
             config.DelayMilliseconds = Math.Clamp(ticks, 100, 1000) * 5;
+            save();
+        }
+        ImGui.TextUnformatted(T("FreeInventorySlots"));
+        var freeSlots = config.EffectiveFreeInventorySlots;
+        ImGui.SetNextItemWidth(-1);
+        if (ImGui.SliderInt("##FreeInventorySlots", ref freeSlots, 0, 140, "%d", ImGuiSliderFlags.NoInput))
+        {
+            config.FreeInventorySlots = freeSlots;
+            save();
+        }
+        var firstHighLevelGear = config.FirstHighLevelGear;
+        if (ImGui.Checkbox(T("FirstHighLevelGear"), ref firstHighLevelGear))
+        {
+            config.FirstHighLevelGear = firstHighLevelGear;
             save();
         }
         var labels = MainWindow.CardOrder.Select(type => T(type.ToString())).ToArray();

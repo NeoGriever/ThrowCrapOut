@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="../InventorySortPlan.cs" Link="InventorySortPlan.cs" />
     <Compile Include="../MoveConfirmation.cs" Link="MoveConfirmation.cs" />
+    <Compile Include="../ClearPlanning.cs" Link="ClearPlanning.cs" />
     <Compile Include="../Text.cs" Link="Text.cs" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 <Project Sdk="Dalamud.NET.Sdk/15.0.0">
   <PropertyGroup>
-    <Version>0.6.0.1</Version>
+    <Version>0.6.0.2</Version>
     <AssemblyName>ThrowCrapOut</AssemblyName>
     <RootNamespace>ThrowCrapOut</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -11,7 +11,7 @@
     <Punchline>Organize your armoury and move unused gear to inventory.</Punchline>
     <Description>Compact armoury overview with Sort, Split and Clear actions. Supports English, German, French and Japanese. Open with /tco; settings with /tco config.</Description>
     <Tags>armoury;inventory;gearset</Tags>
-    <Changelog>0.6.0.1: Added localized action labels, progress colors and a thin progress bar. Pending items are shown in darker colors; active items are light blue. Each move waits for confirmation before the next action delay starts. Confirmation expires after five seconds.</Changelog>
+    <Changelog>0.6.0.2: Clear checks free regular inventory slots before starting and preserves a configurable reserve. An optional mode moves the highest item level gear first across all armoury categories.</Changelog>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Tests/**/*.cs" />

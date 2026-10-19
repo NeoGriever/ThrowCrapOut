@@ -29,7 +29,11 @@ public sealed class Plugin : IDalamudPlugin
         if (config.Version < 3)
         {
             config.DelayMilliseconds = config.EffectiveDelay;
-            config.Version = 3;
+        }
+        if (config.Version < 4 || config.FreeInventorySlots != config.EffectiveFreeInventorySlots)
+        {
+            config.FreeInventorySlots = config.EffectiveFreeInventorySlots;
+            config.Version = 4;
             pluginInterface.SavePluginConfig(config);
         }
         scanner = new ArmouryScanner(clientState, playerState, data, log, config, chat);
