@@ -1,6 +1,6 @@
 <Project Sdk="Dalamud.NET.Sdk/15.0.0">
   <PropertyGroup>
-    <Version>0.6.0.2</Version>
+    <Version>0.6.0.3</Version>
     <AssemblyName>ThrowCrapOut</AssemblyName>
     <RootNamespace>ThrowCrapOut</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -8,10 +8,11 @@
     <Name>ThrowCrapOut</Name>
     <Author>mind</Author>
     <RepoUrl>https://github.com/NeoGriever/ThrowCrapOut</RepoUrl>
+    <IconUrl>https://raw.githubusercontent.com/NeoGriever/ThrowCrapOut/main/plugins/ThrowCrapOut/icon.png</IconUrl>
     <Punchline>Organize your armoury and move unused gear to inventory.</Punchline>
     <Description>Compact armoury overview with Sort, Split and Clear actions. Supports English, German, French and Japanese. Open with /tco; settings with /tco config.</Description>
     <Tags>armoury;inventory;gearset</Tags>
-    <Changelog>0.6.0.2: Clear checks free regular inventory slots before starting and preserves a configurable reserve. An optional mode moves the highest item level gear first across all armoury categories.</Changelog>
+    <Changelog>0.6.0.3: Added the plugin icon to the installed package and its manifest.</Changelog>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Tests/**/*.cs" />
